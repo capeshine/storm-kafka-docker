@@ -5,4 +5,15 @@ apt-get install vim
 2.将docker容器中文件复制到本机
 docker 容器名:文件目录 本机地址 如：docker cp testtomcat：/usr/local/tomcat/webapps/test/js/test.js /opt
 
-3.解决kafka生产消息无法推送到kafka broker
+3.解决kafka生产消息无法推送到kafka broker   错误：org.apache.kafka.common.errors.TimeoutException: Batch Expired
+解决方法：在server.properties中配置三个属性，如：
+broker.id=10001
+advertised.host.name=49.234.8.204
+advertised.listeners=PLAINTEXT://49.234.8.204:9092
+advertised.port=9092
+
+注意：项目pom中kafka版本与server一致为0.9.0.1
+
+4.kafka无法启动   错误：Configured broker.id 2 doesn't match stored broker.id 0
+原因：broker.id没指定时默认为-1，使用kafka-manager添加topic时，会自动创建brokerId,元数据保存在zk中。当改动broker.id时，重启出现错误。
+解决方法：停止kafka和kafka-manager，删除zk镜像后，重新启动。
