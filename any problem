@@ -1,0 +1,8 @@
+1.docker容器中无vi 
+apt-get update
+apt-get install vim
+
+2.将docker容器中文件复制到本机
+docker 容器名:文件目录 本机地址 如：docker cp testtomcat：/usr/local/tomcat/webapps/test/js/test.js /opt
+
+3.解决kafka生产消息无法推送到kafka broker
